@@ -3,12 +3,9 @@
  */
 package edu.tigers.base;
 
-import edu.tigers.autoreferee.engine.EAutoRefMode;
-import edu.tigers.autoreferee.module.AutoRefModule;
 import edu.tigers.sumatra.cam.SSLVisionCam;
 import edu.tigers.sumatra.model.SumatraModel;
 import edu.tigers.sumatra.moduli.ModulesState;
-import edu.tigers.sumatra.referee.Referee;
 import edu.tigers.sumatra.wp.exporter.VisionTrackerSender;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +14,7 @@ import java.util.function.Consumer;
 
 
 /**
- * Main class for auto referee.
+ * Base class for tracker application.
  */
 @Log4j2
 public class BaseApp
@@ -103,22 +100,6 @@ public class BaseApp
 	}
 
 
-	protected void updateRefereeAddress(String fullAddress)
-	{
-		log.info("Setting custom referee address: {}", fullAddress);
-		String[] parts = fullAddress.split(":");
-		String address = parts[0];
-		if (!address.isBlank())
-		{
-			Referee.setCustomAddress(address);
-		}
-		if (parts.length > 1)
-		{
-			Referee.setCustomPort(Integer.parseInt(parts[1]));
-		}
-	}
-
-
 	protected void updateTrackerAddress(String fullAddress)
 	{
 		log.info("Setting custom tracker address: {}", fullAddress);
@@ -132,13 +113,5 @@ public class BaseApp
 		{
 			VisionTrackerSender.setCustomPort(Integer.parseInt(parts[1]));
 		}
-	}
-
-
-	protected void activateAutoRef()
-	{
-		log.info("Activating autoRef in active mode");
-		SumatraModel.getInstance().getModuleOpt(AutoRefModule.class)
-				.ifPresent(a -> a.changeMode(EAutoRefMode.ACTIVE));
 	}
 }

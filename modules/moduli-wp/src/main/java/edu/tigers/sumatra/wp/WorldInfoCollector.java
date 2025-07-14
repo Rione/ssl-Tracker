@@ -378,7 +378,7 @@ public class WorldInfoCollector extends AWorldPredictor
 		reset();
 
 		registerToVisionFilterModule();
-		registerToRefereeModule();
+		// registerToRefereeModule(); // Commented out for tracker-only mode
 		registerToCamModule();
 		registerToRecordManagerModule();
 	}
@@ -396,7 +396,8 @@ public class WorldInfoCollector extends AWorldPredictor
 	{
 		super.startModule();
 
-		if (referee.getActiveSource().getType() == ERefereeMessageSource.CI)
+		// Only initialize CI connector if referee is available and configured for CI mode
+		if (referee != null && referee.getActiveSource().getType() == ERefereeMessageSource.CI)
 		{
 			int port = getSubnodeConfiguration().getInt("ci-port", 11009);
 			ciGameControllerConnector = new CiGameControllerConnector(port);
@@ -409,7 +410,7 @@ public class WorldInfoCollector extends AWorldPredictor
 	public final void stopModule()
 	{
 		unregisterFromVisionFilterModule();
-		unregisterFromRefereeModule();
+		// unregisterFromRefereeModule(); // Commented out for tracker-only mode
 		unregisterFromCamModule();
 		unregisterToRecordManagerModule();
 

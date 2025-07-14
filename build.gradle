@@ -18,26 +18,10 @@ def gitDescribe = providers.exec {
 version = gitDescribe.get()
 
 dependencies {
-    implementation project(':autoreferee-gui')
-
     implementation project(':common')
-    implementation project(':common-gui')
-    implementation project(':common-gui-config')
-
     implementation project(':sumatra-model')
-    implementation project(':sumatra-gui-log')
-    implementation project(':sumatra-gui-referee')
-    implementation project(':sumatra-gui-replay')
-    implementation project(':sumatra-gui-visualizer')
-
-    implementation project(':moduli-record')
-    implementation project(':moduli-autoreferee')
-    runtimeOnly project(':moduli-autoreferee-ci')
     implementation project(':moduli-cam')
-    implementation project(':moduli-referee')
     implementation project(':moduli-wp')
-
-    implementation(libs.com.github.TIGERs.mannheim.infonode)
 
     implementation(libs.org.apache.logging.log4j.log4j.api)
     runtimeOnly(libs.org.apache.logging.log4j.log4j.core)
